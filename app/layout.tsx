@@ -21,7 +21,6 @@ export const metadata: Metadata = {
   title: "Anastasios Giannakakis | Full Stack Engineer",
   description:
     "Portfolio of Anastasios Giannakakis, a results-driven Full Stack Engineer with expertise in JavaScript, TypeScript, React, and more.",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -44,6 +43,3 @@ export default function RootLayout({
   )
 }
 
-
-
-import './globals.css'

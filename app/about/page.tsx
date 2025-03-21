@@ -139,57 +139,42 @@ export default function AboutPage() {
                   <li>
                     <span className="font-medium">AWS Certified Cloud Practitioner</span>
                     <span className="block text-sm text-muted-foreground">Udemy | Issued March 2025</span>
-                    <span className="block text-sm text-muted-foreground">
-                      Credential ID UC-da99a411-4690-46b8-a4ae-2a1996590348
-                    </span>
                   </li>
                   <li>
                     <span className="font-medium">Frontend Developer (React)</span>
                     <span className="block text-sm text-muted-foreground">HackerRank | Issued January 2025</span>
-                    <span className="block text-sm text-muted-foreground">Credential ID DEF23945865C</span>
                   </li>
                   <li>
                     <span className="font-medium">Python (Basic)</span>
                     <span className="block text-sm text-muted-foreground">HackerRank | Issued January 2025</span>
-                    <span className="block text-sm text-muted-foreground">Credential ID A2F07E6125CE</span>
                   </li>
                   <li>
                     <span className="font-medium">React (Basic)</span>
                     <span className="block text-sm text-muted-foreground">HackerRank | Issued January 2025</span>
-                    <span className="block text-sm text-muted-foreground">Credential ID BD7AB070A189</span>
                   </li>
                   <li>
                     <span className="font-medium">Adobe Experience Manager 6.5</span>
                     <span className="block text-sm text-muted-foreground">Udemy | Issued July 2024</span>
-                    <span className="block text-sm text-muted-foreground">
-                      Credential ID UC-cc70d808-5de9-487e-92e1-eca8dc0f7e01
-                    </span>
                   </li>
                   <li>
                     <span className="font-medium">Salesforce Certified Platform Developer I</span>
                     <span className="block text-sm text-muted-foreground">Salesforce | Issued May 2024</span>
-                    <span className="block text-sm text-muted-foreground">Credential ID 4523326</span>
                   </li>
                   <li>
                     <span className="font-medium">Python</span>
                     <span className="block text-sm text-muted-foreground">TestDome | Issued February 2024</span>
-                    <span className="block text-sm text-muted-foreground">
-                      Credential ID www.testdome.com/certificates/37245d0b191b420e9fa54b13f3d35782
-                    </span>
                   </li>
                   <li>
                     <span className="font-medium">Certificate of Competency in English (C2)</span>
                     <span className="block text-sm text-muted-foreground">
                       University of Michigan | Issued December 2016
                     </span>
-                    <span className="block text-sm text-muted-foreground">Credential ID 9022527770</span>
                   </li>
                   <li>
                     <span className="font-medium">Certificate of Competency in English (B2)</span>
                     <span className="block text-sm text-muted-foreground">
                       University of Michigan | Issued May 2015
                     </span>
-                    <span className="block text-sm text-muted-foreground">Credential ID 9021883570</span>
                   </li>
                 </ul>
               </CardContent>

@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Code, Database, Globe, Server, Github } from "lucide-react"
 import { motion } from "framer-motion"
@@ -48,7 +49,16 @@ export default function Home() {
               >
                 <div className="aspect-square rounded-full bg-gradient-to-br from-primary/20 to-primary/5 p-1">
                   <div className="h-full w-full rounded-full bg-background flex items-center justify-center overflow-hidden">
-                    <div className="relative w-4/5 h-4/5 rounded-full bg-gradient-to-br from-primary to-blue-600 opacity-90"></div>
+                    <div className="relative w-4/5 h-4/5 rounded-full overflow-hidden">
+                      <Image
+                        src="/images/anastasios-profile.jpeg"
+                        alt="Anastasios Giannakakis - Full Stack Engineer"
+                        fill
+                        className="object-cover"
+                        priority
+                        sizes="(min-width: 768px) 384px, 100vw"
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="absolute top-1/4 -left-8 p-4 bg-background rounded-lg shadow-lg card-hover">
