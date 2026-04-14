@@ -2,119 +2,271 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Design Tokens ───────────────────────────────────────────────────────── */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    /* Dark-first palette — these are the defaults */
+    --background: 0 0% 4%;        /* #0a0a0a */
+    --foreground: 0 0% 95%;       /* #f2f2f2 */
+
+    --card: 0 0% 7%;              /* #111111 */
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 95%;
+
+    /* Electric indigo accent */
+    --primary: 239 84% 67%;       /* #6366f1 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 12%;        /* #1e1e1e */
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 55%; /* #8c8c8c */
+
+    --accent: 239 84% 67%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 13%;           /* #212121 */
+    --input: 0 0% 13%;
+    --ring: 239 84% 67%;
+
+    --radius: 0.75rem;
+
+    /* Extra surface tokens */
+    --surface: 0 0% 7%;
+    --surface-2: 0 0% 11%;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+  /* Light mode overrides (when user explicitly picks light) */
+  .light {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 6%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 6%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 6%;
+
+    --primary: 239 84% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 6%;
+
+    --muted: 0 0% 93%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 239 84% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 239 84% 60%;
+
+    --surface: 0 0% 97%;
+    --surface-2: 0 0% 93%;
   }
 }
 
+/* ─── Base Reset ──────────────────────────────────────────────────────────── */
 @layer base {
   * {
     @apply border-border;
   }
+
+  html {
+    /* Prevent flash on initial load — dark is default */
+    color-scheme: dark;
+  }
+
+  html.light {
+    color-scheme: light;
+  }
+
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Consistent focus ring */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Smooth anchor scroll — Lenis overrides this, but keep as fallback */
+  html:not([data-lenis-preventing-scroll]) {
+    scroll-behavior: smooth;
   }
 }
 
-.section-heading {
-  @apply text-3xl md:text-4xl font-bold mb-6 text-foreground relative inline-block;
-}
-
-.section-heading::after {
+/* ─── Grain / Noise Texture ──────────────────────────────────────────────── */
+/*
+  Applied as a pseudo-element on the body. Creates a subtle film-grain effect
+  that gives depth to flat dark backgrounds without any additional assets.
+*/
+body::before {
   content: "";
-  @apply absolute bottom-0 left-0 w-1/2 h-1 bg-primary rounded-full;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  background-repeat: repeat;
 }
 
-.gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600;
+/* ─── Typography Utilities ────────────────────────────────────────────────── */
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  }
+
+  /* Gradient accent text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      #818cf8 50%,
+      #a5b4fc 100%
+    );
+  }
+
+  /* Shimmer sweep on gradient text */
+  .shimmer-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--muted-foreground)) 0%,
+      hsl(var(--foreground)) 30%,
+      hsl(var(--primary)) 50%,
+      hsl(var(--foreground)) 70%,
+      hsl(var(--muted-foreground)) 100%
+    );
+    background-size: 200% auto;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* Outline / stroke text (large decorative numbers, section labels) */
+  .text-outline {
+    -webkit-text-stroke: 1px hsl(var(--border));
+    color: transparent;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
-.card-hover {
-  @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+/* ─── Surface / Card Utilities ────────────────────────────────────────────── */
+@layer utilities {
+  .surface {
+    background-color: hsl(var(--surface));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .surface-2 {
+    background-color: hsl(var(--surface-2));
+    border: 1px solid hsl(var(--border));
+  }
+
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px) saturate(1.4);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .light .glass {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  /* Gradient border using pseudo-element trick */
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.6),
+      transparent 60%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Hover card lift */
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -12px hsl(var(--primary) / 0.15);
+  }
 }
 
-.timeline-item {
-  @apply relative pl-8 pb-10 border-l border-muted-foreground/30 last:border-0 last:pb-0;
+/* ─── Marquee (Infinite Ticker) ───────────────────────────────────────────── */
+@layer utilities {
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .pause-on-hover:hover .marquee-track {
+    animation-play-state: paused;
+  }
 }
 
-.timeline-dot {
-  @apply absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary;
+/* ─── Scroll-reveal clip-path helper ─────────────────────────────────────── */
+/*
+  Used with Framer Motion variants. The actual animation is driven by JS;
+  these are just the start/end state references.
+*/
+@layer utilities {
+  .clip-hidden {
+    clip-path: inset(100% 0 0 0);
+  }
+  .clip-visible {
+    clip-path: inset(0% 0 0 0);
+  }
 }
 
-/* Fix for light mode */
-.light .prose {
-  color: hsl(var(--foreground));
+/* ─── Timeline ────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .timeline-item {
+    @apply relative pl-8 pb-10 last:pb-0;
+  }
+
+  .timeline-dot {
+    @apply absolute -left-1.5 mt-1.5 h-3 w-3 rounded-full bg-primary;
+    box-shadow: 0 0 0 4px hsl(var(--background)), 0 0 0 6px hsl(var(--primary) / 0.3);
+  }
 }
 
-.light .prose h1,
-.light .prose h2,
-.light .prose h3,
-.light .prose h4,
-.light .prose h5,
-.light .prose h6 {
-  color: hsl(var(--foreground));
+/* ─── Section Layout ──────────────────────────────────────────────────────── */
+@layer utilities {
+  .section-padding {
+    @apply py-24 md:py-32;
+  }
 }
-
-.light .prose a {
-  color: hsl(var(--primary));
-}
-
-.light .prose strong {
-  color: hsl(var(--foreground));
-}
-
-/* Remove these problematic rules that create circular dependencies */
-/* .light .bg-primary\/10 {
-  @apply bg-primary/10;
-}
-
-.light .text-primary {
-  @apply text-primary;
-}
-
-.light .text-muted-foreground {
-  @apply text-muted-foreground;
-} */
-
