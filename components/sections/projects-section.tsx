@@ -22,30 +22,7 @@ const projects = [
     githubUrl: "https://github.com/GigaTasoulis/el-professor",
     featured: true,
   },
-  {
-    id: "taxi-e",
-    title: "Taxi-E",
-    description: "Web app for taxi owners to connect with hotels and customers, manage bookings, and streamline operations.",
-    tags: ["TypeScript", "React", "API Integration"],
-    githubUrl: "https://github.com/GigaTasoulis/taxi-e",
-    featured: true,
-  },
-  {
-    id: "densky",
-    title: "Densky",
-    description: "Showcase and booking web app for a catamaran and ship charter business.",
-    tags: ["JavaScript", "React", "Booking System"],
-    githubUrl: "https://github.com/GigaTasoulis/densky",
-    featured: false,
-  },
-  {
-    id: "tradebot",
-    title: "TradeBot",
-    description: "Terminal application for automated cryptocurrency trading.",
-    tags: ["Python", "Cryptocurrency", "Trading"],
-    githubUrl: "https://github.com/GigaTasoulis/TradeBot",
-    featured: false,
-  },
+
   {
     id: "studbot",
     title: "StudBot",
