@@ -3,6 +3,13 @@
 import { useEffect } from "react"
 import Lenis from "lenis"
 
+// Store instance on window so navbar (and any component) can call scrollTo
+declare global {
+  interface Window {
+    __lenis?: Lenis
+  }
+}
+
 export default function LenisProvider({
   children,
 }: {
@@ -15,6 +22,8 @@ export default function LenisProvider({
       touchMultiplier: 2,
     })
 
+    window.__lenis = lenis
+
     function raf(time: number) {
       lenis.raf(time)
       requestAnimationFrame(raf)
@@ -25,6 +34,7 @@ export default function LenisProvider({
     return () => {
       cancelAnimationFrame(rafId)
       lenis.destroy()
+      window.__lenis = undefined
     }
   }, [])
 
