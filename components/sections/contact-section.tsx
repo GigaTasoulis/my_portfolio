@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from "framer-motion"
 const contactLinks = [
   { icon: Mail, label: "Email", value: "tasgiannak2001@gmail.com", href: "mailto:tasgiannak2001@gmail.com" },
   { icon: Phone, label: "Phone", value: "+30 694 381 8851", href: "tel:+306943818851" },
-  { icon: MapPin, label: "Location", value: "Patras, Greece", href: undefined },
+  { icon: MapPin, label: "Location", value: "Heraklion, Crete, Greece", href: undefined },
   { icon: Linkedin, label: "LinkedIn", value: "anastasios-giannakakis", href: "https://www.linkedin.com/in/anastasios-giannakakis/" },
   { icon: Github, label: "GitHub", value: "GigaTasoulis", href: "https://github.com/GigaTasoulis" },
 ]

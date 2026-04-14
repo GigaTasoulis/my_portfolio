@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Download, Mail } from "lucide-react"
@@ -54,7 +56,7 @@ export default function AboutSection() {
                 <h3 className="font-heading font-bold mb-4">Personal Details</h3>
                 <ul className="space-y-3 text-sm">
                   {[
-                    { label: "Location", value: "Patras, Greece" },
+                    { label: "Location", value: "Heraklion, Crete, Greece" },
                     { label: "Email", value: "tasgiannak2001@gmail.com", href: "mailto:tasgiannak2001@gmail.com" },
                     { label: "LinkedIn", value: "anastasios-giannakakis", href: "https://www.linkedin.com/in/anastasios-giannakakis/" },
                     { label: "GitHub", value: "GigaTasoulis", href: "https://github.com/GigaTasoulis" },
