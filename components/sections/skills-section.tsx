@@ -162,10 +162,7 @@ export default function SkillsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.55, delay: i * 0.08, ease: EASE }}
-              className="gradient-border surface rounded-2xl p-6"
-              style={{
-                background: `linear-gradient(135deg, ${cat.color.replace("from-", "").replace(" to-", ", ")})`,
-              }}
+              className={`gradient-border surface rounded-2xl p-6 bg-gradient-to-br ${cat.color}`}
             >
               <h3 className={`font-heading font-bold text-lg mb-5 ${cat.accent}`}>
                 {cat.name}
