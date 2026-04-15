@@ -270,3 +270,27 @@ body::before {
     @apply py-24 md:py-32;
   }
 }
+
+/* ─── Shimmer Headline (contact section) ─────────────────────────────────── */
+.shimmer-headline {
+  background-image: linear-gradient(
+    90deg,
+    hsl(var(--foreground)) 0%,
+    hsl(var(--foreground)) 35%,
+    hsl(var(--primary)) 50%,
+    #a5b4fc 60%,
+    hsl(var(--foreground)) 75%,
+    hsl(var(--foreground)) 100%
+  );
+  background-size: 250% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-position: 100% center;
+  transition: background-position 0s;
+}
+
+.shimmer-headline:hover {
+  background-position: 0% center;
+  transition: background-position 0.8s ease;
+}
