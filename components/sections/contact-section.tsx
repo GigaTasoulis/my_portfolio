@@ -247,11 +247,11 @@ export default function ContactSection() {
 
     try {
       if (endpoint) {
-        const res = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify(data),
-        })
+        const body = new FormData()
+        body.append("name", data.name)
+        body.append("email", data.email)
+        body.append("message", data.message)
+        const res = await fetch(endpoint, { method: "POST", body })
         if (!res.ok) throw new Error(`${res.status}`)
       } else {
         // Dev fallback — simulate network delay
