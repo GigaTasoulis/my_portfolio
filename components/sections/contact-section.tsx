@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { motion, AnimatePresence } from "framer-motion"
-import { Github, Linkedin, Mail, Check, Loader2 } from "lucide-react"
+import { Github, Linkedin, Mail, Check, Loader2, AlertCircle } from "lucide-react"
 
 /* ─── Validation schema ─────────────────────────────────────────────────── */
 const schema = z.object({
@@ -118,12 +118,18 @@ function SocialLink({ href, icon: Icon, label, value }: SocialLinkProps) {
 }
 
 /* ─── Submit button states ──────────────────────────────────────────────── */
-function SubmitButton({ status }: { status: "idle" | "sending" | "sent" }) {
+function SubmitButton({ status }: { status: "idle" | "sending" | "sent" | "error" }) {
+  const isError = status === "error"
+
   return (
     <button
       type="submit"
       disabled={status !== "idle"}
-      className="relative w-full h-12 rounded-lg bg-primary text-primary-foreground text-sm font-medium overflow-hidden disabled:opacity-80 transition-opacity"
+      className={`relative w-full h-12 rounded-lg text-sm font-medium overflow-hidden transition-colors disabled:opacity-80 ${
+        isError
+          ? "bg-red-500/20 text-red-400 border border-red-500/30"
+          : "bg-primary text-primary-foreground"
+      }`}
     >
       <AnimatePresence mode="wait">
         {status === "idle" && (
@@ -157,10 +163,23 @@ function SubmitButton({ status }: { status: "idle" | "sending" | "sent" }) {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            className="flex items-center justify-center gap-2 text-white"
+            className="flex items-center justify-center gap-2"
           >
             <Check className="h-5 w-5" />
             Sent!
+          </motion.span>
+        )}
+
+        {status === "error" && (
+          <motion.span
+            key="error"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            className="flex items-center justify-center gap-2"
+          >
+            <AlertCircle className="h-4 w-4" />
+            Something went wrong — try again
           </motion.span>
         )}
       </AnimatePresence>
@@ -213,7 +232,7 @@ const FADE_UP = {
 }
 
 export default function ContactSection() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle")
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle")
 
   const {
     register,
@@ -226,19 +245,26 @@ export default function ContactSection() {
     setStatus("sending")
     const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT
 
-    if (endpoint) {
-      await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(data),
-      })
-    } else {
-      await new Promise((r) => setTimeout(r, 1400))
-    }
+    try {
+      if (endpoint) {
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(data),
+        })
+        if (!res.ok) throw new Error(`${res.status}`)
+      } else {
+        // Dev fallback — simulate network delay
+        await new Promise((r) => setTimeout(r, 1400))
+      }
 
-    setStatus("sent")
-    reset()
-    setTimeout(() => setStatus("idle"), 4000)
+      setStatus("sent")
+      reset()
+      setTimeout(() => setStatus("idle"), 4000)
+    } catch {
+      setStatus("error")
+      setTimeout(() => setStatus("idle"), 5000)
+    }
   }
 
   return (
