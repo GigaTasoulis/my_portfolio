@@ -23,12 +23,28 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "Anastasios Giannakakis | Frontend Engineer",
   description:
-    "Portfolio of Anastasios Giannakakis — a frontend engineer with a passion for UI/UX, building high-performance web applications with React, Next.js, and TypeScript.",
+    "Portfolio of Anastasios Giannakakis — a frontend engineer specialising in React, Next.js, and TypeScript, building high-performance web applications with a focus on UI/UX.",
+  keywords: ["frontend engineer", "React", "Next.js", "TypeScript", "UI/UX", "web developer", "portfolio"],
+  authors: [{ name: "Anastasios Giannakakis" }],
+  creator: "Anastasios Giannakakis",
   openGraph: {
     title: "Anastasios Giannakakis | Frontend Engineer",
     description:
       "Frontend engineer specialising in React, Next.js, and TypeScript — building interfaces people love to use.",
     type: "website",
+    locale: "en_US",
+    siteName: "Anastasios Giannakakis Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Anastasios Giannakakis | Frontend Engineer",
+    description:
+      "Frontend engineer specialising in React, Next.js, and TypeScript — building interfaces people love to use.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
   },
 }
 
