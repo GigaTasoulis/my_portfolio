@@ -21,6 +21,7 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://giannakakis.dev"),
   title: "Anastasios Giannakakis | Frontend Engineer",
   description:
     "Portfolio of Anastasios Giannakakis — a frontend engineer specialising in React, Next.js, and TypeScript, building high-performance web applications with a focus on UI/UX.",
@@ -34,6 +35,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Anastasios Giannakakis Portfolio",
+    url: "https://giannakakis.dev",
   },
   twitter: {
     card: "summary_large_image",
