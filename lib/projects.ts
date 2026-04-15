@@ -5,6 +5,8 @@ export interface Project {
   longDescription: string
   tags: string[]
   githubUrl: string
+  liveUrl?: string
+  image?: string      // path relative to /public, e.g. "/images/workly.png"
   date: string
   features: string[]
   technologies: string[]

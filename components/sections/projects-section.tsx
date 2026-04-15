@@ -119,6 +119,19 @@ function ProjectCard({
                 <ExternalLink className="h-3.5 w-3.5" /> Details
               </button>
             </MagneticButton>
+            {project.liveUrl && (
+              <MagneticButton strength={5}>
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="px-4 py-2 rounded-full bg-primary/80 text-white text-sm font-semibold hover:bg-primary transition-colors flex items-center gap-2"
+                >
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              </MagneticButton>
+            )}
             <MagneticButton strength={5}>
               <a
                 href={project.githubUrl}

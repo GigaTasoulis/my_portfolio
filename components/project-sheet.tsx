@@ -1,7 +1,8 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { X, Github, ArrowUpRight } from "lucide-react"
+import { X, Github, ArrowUpRight, ExternalLink } from "lucide-react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import type { Project } from "@/lib/projects"
 
@@ -75,10 +76,18 @@ export default function ProjectSheet({ project, onClose }: ProjectSheetProps) {
                 ))}
               </div>
 
-              {/* Screenshot placeholder */}
-              <div className="w-full aspect-video rounded-xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center">
-                <span className="text-muted-foreground text-sm">Screenshot coming soon</span>
-              </div>
+              {/* Screenshot */}
+              {project.image ? (
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-white/[0.07]">
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} screenshot`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 512px"
+                  />
+                </div>
+              ) : null}
 
               {/* Description */}
               <div>
@@ -122,11 +131,24 @@ export default function ProjectSheet({ project, onClose }: ProjectSheetProps) {
             </div>
 
             {/* Footer CTA */}
-            <div className="sticky bottom-0 px-6 py-4 bg-[hsl(0_0%_6%)] border-t border-border">
-              <Button asChild className="w-full rounded-full" size="lg">
+            <div className="sticky bottom-0 px-6 py-4 bg-[hsl(0_0%_6%)] border-t border-border flex gap-3">
+              {project.liveUrl && (
+                <Button asChild className="flex-1 rounded-full" size="lg">
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    Live Demo
+                  </a>
+                </Button>
+              )}
+              <Button
+                asChild
+                variant={project.liveUrl ? "outline" : "default"}
+                className="flex-1 rounded-full"
+                size="lg"
+              >
                 <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                   <Github className="mr-2 h-4 w-4" />
-                  View on GitHub
+                  GitHub
                   <ArrowUpRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
