@@ -109,7 +109,7 @@ function SocialLink({ href, icon: Icon, label, value }: SocialLinkProps) {
 
   if (href) {
     return (
-      <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+      <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" aria-label={label}>
         {inner}
       </a>
     )

@@ -231,6 +231,7 @@ body::before {
     display: flex;
     width: max-content;
     will-change: transform;
+    backface-visibility: hidden;
   }
 
   .pause-on-hover:hover .marquee-track {
@@ -269,6 +270,19 @@ body::before {
   .section-padding {
     @apply py-24 md:py-32;
   }
+}
+
+/* ─── Animation Performance ──────────────────────────────────────────────── */
+/*
+  Framer Motion renders transform/opacity only — GPU-composited, no layout thrash.
+  Explicit will-change on the scroll-progress bar and tilt cards for early layer
+  promotion.
+*/
+[data-framer-motion-will-change],
+.tilt-card,
+.scroll-progress-bar {
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 /* ─── Shimmer Headline (contact section) ─────────────────────────────────── */

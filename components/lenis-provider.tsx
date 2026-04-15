@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import Lenis from "lenis"
+import { MotionConfig } from "framer-motion"
 
 // Store instance on window so navbar (and any component) can call scrollTo
 declare global {
@@ -38,5 +39,5 @@ export default function LenisProvider({
     }
   }, [])
 
-  return <>{children}</>
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>
 }
