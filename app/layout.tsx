@@ -2,11 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Space_Grotesk, DM_Sans } from "next/font/google"
 import "./globals.css"
-import Navbar from "@/components/navbar"
-import Footer from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
-import LenisProvider from "@/components/lenis-provider"
-import ScrollProgress from "@/components/scroll-progress"
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -68,14 +64,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <LenisProvider>
-            <ScrollProgress />
-            <div className="flex min-h-screen flex-col">
-              <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-          </LenisProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>
