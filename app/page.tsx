@@ -1,30 +1,29 @@
-import HeroSection from "@/components/sections/hero-section"
-import AboutSection from "@/components/sections/about-section"
-import ExperienceSection from "@/components/sections/experience-section"
-import SkillsSection from "@/components/sections/skills-section"
-import ProjectsSection from "@/components/sections/projects-section"
-import ContactSection from "@/components/sections/contact-section"
-import CertificationsStrip from "@/components/certifications-strip"
+"use client"
 
-const Divider = () => (
-  <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-)
+import dynamic from "next/dynamic"
+
+const PhaserGame = dynamic(() => import("@/components/game/PhaserGame"), {
+  ssr: false,
+  loading: () => (
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        background: "#080808",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "monospace",
+        color: "#6366f1",
+        fontSize: "14px",
+        letterSpacing: "3px",
+      }}
+    >
+      LOADING...
+    </div>
+  ),
+})
 
 export default function Home() {
-  return (
-    <>
-      <HeroSection />
-      <Divider />
-      <AboutSection />
-      <Divider />
-      <ExperienceSection />
-      <Divider />
-      <SkillsSection />
-      <CertificationsStrip />
-      <Divider />
-      <ProjectsSection />
-      <Divider />
-      <ContactSection />
-    </>
-  )
+  return <PhaserGame />
 }
